@@ -6,7 +6,7 @@ import GithubProvider from "next-auth/providers/github";
 //import EmailProvider from "next-auth/providers/email";
 //import Auth0Provider from "next-auth/providers/auth0";
 
-import { createTransport } from "nodemailer"
+//import { createTransport } from "nodemailer"
  
 import "dotenv/config";
  
