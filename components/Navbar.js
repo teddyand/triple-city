@@ -1,10 +1,25 @@
+import { useContext } from 'react';
 import Link from 'next/link';
+import themeContext from './themeContext';
+
 function Navbar() {
+	const { toggleTheme, theme } = useContext(themeContext);
+  const newThemeName = theme === 'dark' ? 'light' : 'dark';
 	return (
+		<div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 75,
+      }}>      
 		<div>
-			<li><Link href='/blog/2021-01-01/happy-new-year'>Read post</Link></li>
-			<li><Link href='/blog/2021-03-05/match-update'>Read post</Link></li>
-			<li><Link href='/blog/2021-04-23/i-love-nextjs'>Read post</Link></li>
+		<Link href="/">Home </Link>
+        <Link href="  /about">About </Link>
+        <Link href="  /contacts">Contacts </Link>
+        <Link href="  /blog">Blog </Link>
+        <button onClick={toggleTheme}>Set {newThemeName} theme</button>
+		</div>
 		</div>
 		);
 }
