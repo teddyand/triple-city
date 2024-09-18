@@ -1,26 +1,40 @@
+import Head from 'next/head';
+import fsPromises from 'fs/promises';
+import path from 'path';
 import Link from 'next/link'
- 
-function Posts() {
+import PostMeta from '../../components/PostHead';
+
+export async function getStaticProps() {
+  const filePath = path.join(process.cwd(), 'data.json');
+  const jsonData = await fsPromises.readFile(filePath);
+  const objectData = JSON.parse(jsonData);
+
+  return {
+    props: objectData
+  }
+}
+
+
+export default function Home(props) {
+  const posts = props.posts;
   return (
     <ul>
-      <li>
-        <Link href={{
-          pathname: '/blog/[date]/[slug]',
-          query: {
-            date: '2020-01-01',
-            slug: 'happy-new-year',
-            foo: 'bar'
-          }
-        }}>Read post</Link>
-      </li>
-      <li>
-        <Link href="/blog/2021-03-05/match-update">Read post</Link>
-      </li>
-      <li>
-        <Link href="/blog/2023-04-29/i-love-nextjs">Read Post</Link>
-      </li>
-    </ul>
+      {posts.map((post) => (
+        <li key={post.id}>
+          <Link
+            href={{
+              pathname: '/blog/[slug]',
+              query: { slug: post.slug },
+            }}
+          >
+            {post.title}
+          </Link>
+        </li>
+      ))}
+    </ul>   
+    
   )
 }
- 
-export default Posts;          
+
+
+

@@ -37,10 +37,10 @@ export default function Home() {
 
         <Image
             className={styles.logo}
-            src="https://images.unsplash.com/photo-1474181487882-5abf3f0ba6c2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://images.unsplash.com/photo-1681442815931-d36b530406b4?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Next.js logo"
-            width={700}
-            height={360}
+            width={360}
+            height={600}
             priority
           />
           <ol>

@@ -26,4 +26,12 @@ export default [
       'Collies form a distinctive type of herding dogs, including many related landraces and standardized breeds. The type originated in Scotland and Northern England. Collies are medium-sized, fairly lightly-built dogs, with pointed snouts. Many types have a distinctive white color over the shoulders',
     image: 'https://images.unsplash.com/photo-1517662613602-4b8e02886677',
   },
+  {
+        "id": "lkosadigu",
+        "date": "2024-04-23",
+        "slug": "daivd-loves-mock-life",
+        "title": "david learns to mock",
+        "subtitle": "david was born in Beijing in 1977 April the 29th.Graduated from Beijing Information Science and Technology University (origin: Bejing Machinery industry Institue ) at 1999 July, Major in Industrial Electrical automation.",
+        "image": ""
+    }
 ];
