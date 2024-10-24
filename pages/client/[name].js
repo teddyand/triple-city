@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Image from "next/image";
 
 
 function UserData({ client }) {	
@@ -42,7 +43,12 @@ function UserData({ client }) {
             <p class="text-sm text-gray-500">
                 Personal details and application. 
             </p>
-            <img src={client.profile_pic} alt={client.name} width={125} height={125} />
+            <Image                  
+                  src={client.profile_pic}
+                  width={125}
+                  height={125}
+                  alt={client.name}
+                />                            
         </div>
         <div>
             <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">

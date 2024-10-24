@@ -1,7 +1,8 @@
 import { useEffect,useState } from 'react';
 import Link from 'next/link';
 //import axios from 'axios';
-
+import Image from "next/image";
+import styles from "@/styles/Home.module.css";
 function List ({ clients }) { 
 
 	return (
@@ -19,7 +20,13 @@ function List ({ clients }) {
           {clients.map((client) => (
             <li key={client.name}>
               <div className="flex items-center gap-x-6">
-                <img alt="" src={client.profile_pic} className="h-16 w-16 rounded-full" />
+                <Image
+                  className={styles.borderCircle}
+                  src={client.profile_pic}
+                  width={65}
+                  height={65}
+                  alt="作者的照片"
+                />                
                 <div>
                 <Link
                     href={{
