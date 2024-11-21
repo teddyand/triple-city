@@ -120,7 +120,7 @@ function UserData({ client }) {
     </div>
 
     
-    <a href="https://www.buymeacoffee.com/danimai" target="_blank" class="bg-purple-600 p-2 rounded-lg text-white fixed right-0 bottom-0">
+    <a href="https://davidit.top/" target="_blank" class="bg-purple-600 p-2 rounded-lg text-white fixed right-0 bottom-0">
         Support me
     </a>
 </div>
