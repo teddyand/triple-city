@@ -1,9 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { fetchClients, normalizeClient, fallbackClients } from '../../lib/db';
 
-function UserData({ client }) {	
+async function fetchClientByName(name) {
+  const { clients, source } = await fetchClients();
+  const inRemote = clients.find((item) => item.name === name);
+  const client = inRemote || fallbackClients.find((item) => item.name === name) || null;
+  const resolvedSource = inRemote ? source : 'fallback';
+  return { client, source: resolvedSource };
+}
+
+function UserData({ client }) {
 	return (
 	  <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
 	    <div className="w-full max-w-4xl">
@@ -111,53 +118,30 @@ function UserData({ client }) {
 
 export async function getServerSideProps({ query }) {
 	const { name } = query;
-	console.log(name);
-	
-	try {
-		const res = await axios.get(
-			`https://my-json-server.typicode.com/teddyand/myrestapi/clients/?name=${name}`,
-			{ headers: { authorization: process.env.API_TOKEN } }
-		);
-		const repo = res.data;
-		const userData = repo[0];
-		
-		if (!userData) {
-			return {
-				props: {
-					name,
-					data: null,
-					error: 'User not found'
-				}
-			};
+	const { client, source } = await fetchClientByName(name);
+
+	return {
+		props: {
+			name,
+			data: client ? normalizeClient(client) : null,
+			error: client ? null : 'User not found',
+			source
 		}
-		
-		return {
-			props: {
-				name,
-				data: userData,
-				error: null
-			}
-		};
-	} catch (err) {
-		console.error(err);
-		return {
-			props: {
-				name,
-				data: null,
-				error: 'Failed to fetch user data'
-			}
-		};
-	}
+	};
 }
 
 
-function UserPage({ name, data, error }) {
-	// All data is fetched on the server side
-	// No need for client-side data fetching
-	const loading = false; // Data is already loaded from server
+function UserPage({ name, data, error, source }) {
+	// Data is fetched in getServerSideProps (remote GitHub API first, local fallback)
+	const loading = false;
 
 	return (
 		<div className="min-h-screen bg-gray-50">
+			{source === 'fallback' && (
+				<div className="bg-amber-50 text-amber-700 text-sm text-center py-2">
+					远程数据不可用，正在使用本地回退数据
+				</div>
+			)}
 			{/* Navigation */}
 			<nav className="bg-white shadow-sm">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
