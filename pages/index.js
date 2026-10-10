@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { fetchClients, normalizeClient } from '../lib/db';
 
@@ -41,35 +40,25 @@ function List ({ clients }) {
 }
 
 
-function Users() {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { clients, source } = await fetchClients();
-      setData(clients.map(normalizeClient));
-      if (source === 'fallback') setError('远程数据获取失败，已使用本地数据');
-      setLoading(false);
-    }
-
-    fetchData();
-  }, []);
+export default function Users({ clients, source }) {
+  const error = source === 'fallback' ? '远程数据获取失败，已使用本地数据' : null;
 
   return (
     <div>
-      {loading && <div>Loading users...</div>}
       {error && (
         <div className="mx-auto max-w-7xl px-6 pt-4 text-sm text-amber-600">{error}</div>
       )}
-      {data && <List clients={data} />}
+      <List clients={clients} />
     </div>
-    );
+  );
 }
 
-
-
-
-
-export default Users;
+export async function getServerSideProps() {
+  const { clients, source } = await fetchClients();
+  return {
+    props: {
+      clients: clients.map(normalizeClient),
+      source,
+    },
+  };
+}
